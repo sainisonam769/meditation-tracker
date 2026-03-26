@@ -42,8 +42,7 @@ php artisan key:generate
 5. Run database migrations  
 php artisan migrate  
 
-(Optional)  
-php artisan db:seed  
+
 
 6. Build frontend assets  
 npm run build  
@@ -79,6 +78,12 @@ Laravel was chosen because it follows MVC architecture and provides built-in fea
 - No advanced analytics or reporting  
 - No API layer  
 - Limited testing  
+
+## Important Features / Notes
+
+- Seeder is available to populate test data  
+- Automated tests can be run using `php artisan test`  
+- Pagination is implemented for meditation session lists
 
 ## Future improvements
 

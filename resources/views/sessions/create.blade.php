@@ -29,11 +29,11 @@
         </div>
 
         <div class="mb-3">
-            <label>Notes</label>
-            <textarea name="notes" class="form-control"></textarea>
+            <label>Notes (Optional)</label>
+            <textarea id="notes" name="notes" class="form-control"></textarea>
         </div>
 
-        <button class="btn btn-primary">Save</button>
+        <button class="btn btn-primary">Save Manually</button>
     </form>
 
 </div>
@@ -61,21 +61,15 @@ function stopTimer() {
         alert("Start first");
         return;
     }
-
     clearInterval(timer);
-
-    let minutes = Math.floor(seconds / 60);
-
+    let minutes = Math.round(seconds / 60);
     if (minutes < 1) {
         alert("At least 1 minute required");
         return;
     }
-
     document.getElementById('duration').value = minutes;
-
     let today = new Date().toISOString().split('T')[0];
     document.getElementById('session_date').value = today;
-
     document.getElementById('sessionForm').submit();
 }
 </script>

@@ -9,13 +9,15 @@ class MeditationSessionController extends Controller
 {
     public function index()
     {
-        $user = auth()->user();
-        $sessions = MeditationSession::where('user_id', $user->id)
-                        ->orderBy('id', 'desc')
-                        ->get();
+        $sessions = MeditationSession::where('user_id', auth()->id())
+                    ->orderBy('session_date', 'desc')
+                    ->paginate(10);
 
         return view('sessions.index', compact('sessions'));
     }
+
+
+
 
     public function create()
     {
@@ -23,21 +25,23 @@ class MeditationSessionController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'session_date' => 'required',
-            'duration' => 'required|integer|min:1'
-        ]);
+{
+    $request->validate([
+        'session_date' => 'required|date',
+        'duration' => 'required|integer|min:1',
+        'notes' => 'nullable|string'
+    ]);
 
-        $session = new MeditationSession();
-        $session->user_id = auth()->user()->id;
-        $session->session_date = $request->session_date;
-        $session->duration = $request->duration;
-        $session->notes = $request->notes;
-        $session->save();
+    $session = new MeditationSession();
+    $session->user_id = auth()->user()->id;
+    $session->session_date = $request->session_date;
+    $session->duration = $request->duration;
+    $session->notes = $request->notes;
+    $session->save();
 
-        return redirect()->route('sessions.index');
-    }
+    return redirect()->route('sessions.index')
+        ->with('success', 'Session saved successfully');
+}
 
     public function edit($id)
     {
